@@ -21,10 +21,10 @@
      for different hardware and product builds. -->
 <resources>
 
-    <!-- True will enable the electron beam screen-off animation. -->
-    <bool name="config_screenOffAnimation">false</bool>
+    <!-- Software blur is too slow on this device. -->
+    <bool name="config_sf_slowBlur">true</bool>
 
-    <string name="config_datause_iface">wlan0</string>
+  <!--  <string name="config_datause_iface">wlan0</string> -->
     <!-- This device is not "voice capable"; it's data-only. -->
     <bool name="config_voice_capable">false</bool>
 
@@ -35,9 +35,12 @@
     
     <bool name="config_allowAllRotations">true</bool>
 
-    <!-- Device has a h/w rotation lock switch -->	
+  <!-- Device has a h/w rotation lock switch -->
     <bool name="config_hasRotationLockSwitch">true</bool>
-    
+
+ <!-- Enable lockscreen rotation -->
+    <bool name="config_enableLockScreenRotation">true</bool>
+
     <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
          Please don't copy them, copy anything else. -->
 
@@ -53,7 +56,9 @@
     <string-array translatable="false" name="networkAttributes">
         <item>"wifi,1,1,1,-1,true"</item>
         <item>"bluetooth,7,7,0,-1,true"</item>
-        <item>"wifi_p2p,13,1,0,-1,false"</item>
+        <item>"wifi_p2p,13,1,0,-1,true"</item>
+        <item>"bt_dun,14,14,2,-1,true"</item>
+        <item>"ethernet,9,9,9,-1,true"</item>
     </string-array>
 
     <!-- This string array should be overridden by the device to present a list of radio
@@ -64,7 +69,29 @@
     <string-array translatable="false" name="radioAttributes">
         <item>"1,1"</item>
         <item>"7,1"</item>
+        <item>"9,1"</item>
     </string-array>
+
+    <!-- List of regexpressions describing the interface (if any) that represent tetherable
+         USB interfaces.  If the device doesn't want to support tething over USB this should
+         be empty.  An example would be "usb.*" -->
+    <string-array translatable="false" name="config_tether_usb_regexs">
+    </string-array>
+
+    <!-- List of regexpressions describing the interface (if any) that represent tetherable
+         Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
+         should be empty.  An example would be "softap.*" -->
+    <string-array translatable="false" name="config_tether_wifi_regexs">
+    </string-array>
+
+    <!-- List of regexpressions describing the interface (if any) that represent tetherable
+         bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
+         should be empty. -->
+    <string-array translatable="false" name="config_tether_bluetooth_regexs">
+    </string-array>
+
+    <!-- Regex of wired ethernet ifaces -->
+    <string translatable="false" name="config_ethernet_iface_regex">(eth|usb)\\d</string>
 
     <!-- Array of allowable ConnectivityManager network types for tethering -->
     <integer-array translatable="false" name="config_tether_upstream_types">
@@ -75,15 +102,23 @@
     <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
     <bool translatable="false" name="config_wifi_dual_band_support">false</bool>
 
-    <!-- Package name providing network location support. -->
-    <string name="config_networkLocationProviderPackageName" translatable="false">com.google.android.location</string>
-
-    <!-- Package name providing geocoder API support. -->
-    <string name="config_geocodeProviderPackageName" translatable="false">com.google.android.location</string>
-
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
+
+    <!-- Boolean indicating whether the wifi chipset has wifi direct support -->
+    <bool translatable="false" name="config_wifi_p2p_support">true</bool>
+    <!-- Device type information conforming to Annex B format in WiFi Direct specification.
+         The default represents a dual-mode smartphone -->
+    <string translatable="false" name="config_wifi_p2p_device_type">10-0050F204-4</string>
+    <!-- Boolean indicating whether the wifi chipset supports background scanning mechanism.
+         This mechanism allows the host to remain in suspend state and the dongle to actively
+         scan and wake the host when a configured SSID is detected by the dongle. This chipset
+         capability can provide power savings when wifi needs to be always kept on.
+         The driver commands needed to support the feature are BGSCAN-START and BGSCAN-STOP -->
+    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
+   <!-- Minimum screen brightness allowed by the power manager. -->
+    <integer name="config_screenBrightnessDim">10</integer>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -156,8 +191,16 @@
     <!-- When a database query is executed, the results retuned are paginated
          in pages of size (in KB) indicated by this value -->
     <integer name="config_cursorWindowSize">2048</integer>
-
-    <!-- Setting to false will disable CM's IME switcher implementation for tablets -->
-    <bool name="config_show_cmIMESwitcher">false</bool>
     
+    <!-- Separate software navigation bar required on this device. -->             
+    <bool name="config_showNavigationBar">true</bool>
+
+   <!--  Maximum number of supported users -->
+    <integer name="config_multiuserMaximumUsers">8</integer>
+
+   <!-- Package name(s) containing location provider support -->
+    <string-array name="config_locationProviderPackageNames" translatable="false">
+        <item>com.android.location.fused</item>
+        <item>com.google.android.location</item>
+    </string-array>
 </resources>
