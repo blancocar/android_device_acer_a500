@@ -31,13 +31,4 @@ include $(all-subdir-makefiles)
 
 include $(CLEAR_VARS)
 
-# generate init.<board>.rc
-TARGET_INITRC_FILES := device/acer/a500/prebuilt/ramdisk/init.picasso.rc
 
-LOCAL_INIT_FILE := $(TARGET_ROOT_OUT)/init.$(TARGET_BOOTLOADER_BOARD_NAME).rc
-
-$(LOCAL_INIT_FILE): $(TARGET_INITRC_FILES)
-	$(hide) echo "import init.$(TARGET_BOOTLOADER_BOARD_NAME).usb.rc" > $@
-	$(hide) cat $^ >> $@
-
-ALL_GENERATED_SOURCES += $(LOCAL_INIT_FILE)
