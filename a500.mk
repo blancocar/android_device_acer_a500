@@ -13,12 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-PRODUCT_NAME := a500
-PRODUCT_DEVICE := a500
-PRODUCT_BRAND := acer
-PRODUCT_MODEL := a500
-
-
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # inherit proprietary files
@@ -31,24 +25,11 @@ $(call inherit-product-if-exists, framework/base/data/videos/VideoPackage2.mk)
 WIFI_BAND := 802_11_ABG
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
-PRODUCT_PROPERTY_OVERRIDES := \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 \
-    ro.opengles.version=131072 \
-    dalvik.vm.heapstartsize=5m \
-    dalvik.vm.heapgrowthlimit=48m \
-    dalvik.vm.heapsize=256m \
-    persist.sys.usb.config=mtp,adb \
-    ro.dinfo.radio=Wifi
-
-PRODUCT_CHARACTERISTICS := tablet
-
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     audio.a2dp.default \
     libaudioutils \
     libtinyalsa \
-    audio.primary.picasso \
     make_ext4fs \
     librs_jni \
     setup_fs \
@@ -89,8 +70,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml 
 
-
-# Misc configs
+# prebuilt configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf \
     $(LOCAL_PATH)/prebuilt/etc/init.d/01sysctl:system/etc/init.d/01sysctl \
@@ -100,7 +80,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/prebuilt/etc/gpsconfig.xml:system/etc/gps/gpsconfig.xml \
     $(LOCAL_PATH)/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/prebuild/etc/sound/a500.xml:system/etc/sound/a500.xml 
+    $(LOCAL_PATH)/prebuilt/etc/sound/a500.xml:system/etc/sound/a500.xml 
 
 # Huawei_3GUSB
 PRODUCT_COPY_FILES += \
@@ -142,7 +122,19 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/usr/keylayout/Vendor_05ac_Product_0239.kl:system/usr/keylayout/Vendor_05ac_Product_0239.kl \
     $(LOCAL_PATH)/prebuilt/usr/keylayout/Vendor_22b8_Product_093d.kl:system/usr/keylayout/Vendor_22b8_Product_093d.kl
 
+# for bugreport, with screen capture, and send mail intent
+PRODUCT_PACKAGES += send_bug
+PRODUCT_COPY_FILES += \
+    system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
+    system/extras/bugmailer/send_bug:system/bin/send_bug
 
+PRODUCT_PROPERTY_OVERRIDES := \
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=30 \
+
+PRODUCT_PROPERTY_OVERRIDES += ro.dinfo.radio=Wifi
+
+PRODUCT_CHARACTERISTICS := tablet
 
 # Bluetooth config file
 PRODUCT_COPY_FILES += \
@@ -151,3 +143,7 @@ PRODUCT_COPY_FILES += \
 # type
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+PRODUCT_NAME := cm_a500
+PRODUCT_DEVICE := a500
+PRODUCT_BRAND := acer
+PRODUCT_MODEL := a500

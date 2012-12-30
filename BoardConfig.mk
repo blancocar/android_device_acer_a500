@@ -14,23 +14,21 @@
 # limitations under the License.
 #
 
-#platform
-TARGET_BOARD_PLATFORM := tegra
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a
+# Platform
+TARGET_BOARD_PLATFORM   := tegra
+TARGET_CPU_ABI          := armeabi-v7a
+TARGET_CPU_ABI2         := armeabi
+TARGET_ARCH_VARIANT     := armv7-a
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_ARCH_VARIANT_FPU := vfpv3-d16
-TARGET_CPU_SMP := true
+TARGET_ARCH             := arm
+TARGET_CPU_SMP          := true
+TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := picasso
 TARGET_OTA_ASSERT_DEVICE := picasso,a500
 ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_EXT4  := true
 BOARD_USES_GENERIC_INVENSENSE := false
-TARGET_NO_BOOTLOADER := true
-TARGET_NO_RECOVERY := true
-BOARD_HAS_NO_SELECT_BUTTON := true
 
 # kernel
 #TARGET_PREBUILT_KERNEL := device/acer/a500/kernel
@@ -56,14 +54,12 @@ BOARD_EGL_CFG          := device/acer/a500/prebuilt/etc/egl.cfg
 BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 BOARD_USE_SKIA_LCDTEXT := true
 BOARD_USES_HGL := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
-BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 BOARD_USES_OVERLAY := true
 BOARD_EGL_NEEDS_LEGACY_FB := true
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := false
-#BOARD_USES_TINY_AUDIO_HW := true
+BOARD_USES_TINY_AUDIO_HW := true
 BOARD_USES_ALSA_AUDIO := false
 
 # GPS
